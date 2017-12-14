@@ -1,0 +1,14 @@
+{
+    "debug": true,
+    "endpoint": "XP4-TEST",
+    "nest": {
+        "enabled": true,
+        "addrs":[
+            "127.0.0.1:1601",
+            "127.0.0.1:1601",
+            "127.0.0.1:1601"
+        ],
+        "interval": 12,
+        "timeout": 1000
+    }
+}
