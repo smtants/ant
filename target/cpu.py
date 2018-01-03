@@ -34,8 +34,7 @@ def cpu():
 
         return obj
     except Exception as e:
-        log.lg_write_ant(" ==cpu== " + str(e))
-        exit()
+        log.lg_write_ant(" ==cpu.cpu== " + str(e))
 
 def main():
     obj = cpu()

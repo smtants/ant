@@ -54,8 +54,7 @@ def mem():
 
         return obj
     except Exception as e:
-        log.lg_write_ant(' ==mem== ' + str(e))
-        exit()
+        log.lg_write_ant(' ==mem.mem== ' + str(e))
 
 def main():
     obj = mem()
