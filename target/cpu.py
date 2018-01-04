@@ -29,6 +29,7 @@ def cpu():
         obj['cpu.softirq']     = int(cpuTarItems[7])
         obj['cpu.stealstolen'] = int(cpuTarItems[8])
         obj['cpu.guest']       = int(cpuTarItems[9])
+        obj['cpu.total']       = int(cpuTarItems[1]) + int(cpuTarItems[2]) + int(cpuTarItems[3]) + int(cpuTarItems[4]) + int(cpuTarItems[5]) + int(cpuTarItems[6]) + int(cpuTarItems[7]) + int(cpuTarItems[8]) + int(cpuTarItems[9])
 
         f.close()
 
