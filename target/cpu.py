@@ -20,15 +20,15 @@ def cpu():
         cpuTarItems = f.readline().split()
 
         obj = {}
-        obj['cpu.user']        = cpuTarItems[1]
-        obj['cpu.nice']        = cpuTarItems[2]
-        obj['cpu.system']      = cpuTarItems[3]
-        obj['cpu.idle']        = cpuTarItems[4]
-        obj['cpu.iowait']      = cpuTarItems[5]
-        obj['cpu.irq']         = cpuTarItems[6]
-        obj['cpu.softirq']     = cpuTarItems[7]
-        obj['cpu.stealstolen'] = cpuTarItems[8]
-        obj['cpu.guest']       = cpuTarItems[9]
+        obj['cpu.user']        = int(cpuTarItems[1])
+        obj['cpu.nice']        = int(cpuTarItems[2])
+        obj['cpu.system']      = int(cpuTarItems[3])
+        obj['cpu.idle']        = int(cpuTarItems[4])
+        obj['cpu.iowait']      = int(cpuTarItems[5])
+        obj['cpu.irq']         = int(cpuTarItems[6])
+        obj['cpu.softirq']     = int(cpuTarItems[7])
+        obj['cpu.stealstolen'] = int(cpuTarItems[8])
+        obj['cpu.guest']       = int(cpuTarItems[9])
 
         f.close()
 

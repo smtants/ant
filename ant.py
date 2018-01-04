@@ -63,17 +63,14 @@ def ant():
             pushJson['step']      = nestInterval
             for tar in dict(targets).keys():
                 pushJson['timestamp'] = int(time.time())
-                items = targets.get(tar)()
-                for key in dict(items).keys():
-                    pushJson['item']  = key
-                    pushJson['value'] = items[key]
-                    params = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
-                    req = urllib.request.urlopen(url, params)
-                    ret = json.loads(req.read())
-                    if data['debug']:
-                        debug(str(key),ret)
-                    if not ret['res'] > 0:
-                        log.lg_write_ant(" ==ant== target " + str(tar) + "." + str(key) + " push failed !")
+                pushJson['value'] = targets.get(tar)()
+                params = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
+                req = urllib.request.urlopen(url, params)
+                ret = json.loads(req.read())
+                if data['debug']:
+                    debug(str(tar),ret)
+                if not ret['res'] > 0:
+                    log.lg_write_ant(" ==ant== target " + str(tar) + " push failed !")
             time.sleep(int(nestInterval / len(targets)))
 
     except Exception as e:
