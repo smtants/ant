@@ -14,6 +14,13 @@ from smtants.ant.include import log
 from smtants.ant.target import cpu
 from smtants.ant.target import mem
 
+#   print debug msg
+def debug(tar, ret):
+    if ret['res'] == 0:
+        print(str(tar) + " push is ok !")
+    else:
+        print(str(tar) + " push failed !")
+
 def ant():
     if not os.path.exists('cfg.json'):
         log.lg_write_ant(" ==ant== cfg.json file is not exists !")
@@ -43,39 +50,31 @@ def ant():
     i = random.randrange(0, len(nestAddrs))
     url = 'http://' + str(nestAddrs[i]) + '/v1/push'
 
+    targets = {
+        'cpu': cpu.cpu, 
+        'mem': mem.mem
+    }
+
     try:
         while True:
             timestamp = int(time.time())
-
             pushJson = {}
             pushJson['endpoint']  = endpoint
             pushJson['step']      = nestInterval
-            
-            #   cpu
-            pushJson['timestamp'] = int(time.time())
-            cpuItems = cpu.cpu()
-            for key in dict(cpuItems).keys():
-                pushJson['item']  = key
-                pushJson['value'] = cpuItems[key]
-                params = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
-                res = urllib.request.urlopen(url, params)
-                data = json.loads(res.read())
-                if not data['res'] > 0:
-                    log.lg_write_ant(" ==ant== target cpu push failed !")
-            time.sleep(int(nestInterval / 2))
-
-            #   mem
-            pushJson['timestamp'] = int(time.time())
-            cpuItems = mem.mem()
-            for key in dict(cpuItems).keys():
-                pushJson['item']  = key
-                pushJson['value'] = cpuItems[key]
-                params = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
-                res = urllib.request.urlopen(url, params)
-                data = json.loads(res.read())
-                if not data['res'] > 0:
-                    log.lg_write_ant(" ==ant== target mem push failed !")
-            time.sleep(int(nestInterval / 2))
+            for tar in dict(targets).keys():
+                pushJson['timestamp'] = int(time.time())
+                items = targets.get(tar)()
+                for key in dict(items).keys():
+                    pushJson['item']  = key
+                    pushJson['value'] = items[key]
+                    params = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
+                    req = urllib.request.urlopen(url, params)
+                    ret = json.loads(req.read())
+                    if data['debug']:
+                        debug(str(key),ret)
+                    if not ret['res'] > 0:
+                        log.lg_write_ant(" ==ant== target " + str(tar) + "." + str(key) + " push failed !")
+            time.sleep(int(nestInterval / len(targets)))
 
     except Exception as e:
         log.lg_write_ant(" ==ant== " + str(e))
