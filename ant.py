@@ -69,7 +69,7 @@ def ant():
                 ret = json.loads(req.read())
                 if data['debug']:
                     debug(str(tar),ret)
-                if not ret['res'] > 0:
+                if ret['res'] > 0:
                     log.lg_write_ant(" ==ant== target " + str(tar) + " push failed !")
             time.sleep(int(nestInterval / len(targets)))
 
