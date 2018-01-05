@@ -20,16 +20,16 @@ def cpu():
         cpuTarItems = f.readline().split()
 
         obj = {}
-        obj['cpu.user']        = int(cpuTarItems[1])
-        obj['cpu.nice']        = int(cpuTarItems[2])
-        obj['cpu.system']      = int(cpuTarItems[3])
-        obj['cpu.idle']        = int(cpuTarItems[4])
-        obj['cpu.iowait']      = int(cpuTarItems[5])
-        obj['cpu.irq']         = int(cpuTarItems[6])
-        obj['cpu.softirq']     = int(cpuTarItems[7])
-        obj['cpu.stealstolen'] = int(cpuTarItems[8])
-        obj['cpu.guest']       = int(cpuTarItems[9])
-        obj['cpu.total']       = int(cpuTarItems[1]) + int(cpuTarItems[2]) + int(cpuTarItems[3]) + int(cpuTarItems[4]) + int(cpuTarItems[5]) + int(cpuTarItems[6]) + int(cpuTarItems[7]) + int(cpuTarItems[8]) + int(cpuTarItems[9])
+        total = int(cpuTarItems[1]) + int(cpuTarItems[2]) + int(cpuTarItems[3]) + int(cpuTarItems[4]) + int(cpuTarItems[5]) + int(cpuTarItems[6]) + int(cpuTarItems[7]) + int(cpuTarItems[8]) + int(cpuTarItems[9])
+        obj['cpu.user']        = round(int(cpuTarItems[1]) / total, 3)
+        obj['cpu.nice']        = round(int(cpuTarItems[2]) / total, 3)
+        obj['cpu.system']      = round(int(cpuTarItems[3]) / total, 3)
+        obj['cpu.idle']        = round(int(cpuTarItems[4]) / total, 3)
+        obj['cpu.iowait']      = round(int(cpuTarItems[5]) / total, 3)
+        obj['cpu.irq']         = round(int(cpuTarItems[6]) / total, 3)
+        obj['cpu.softirq']     = round(int(cpuTarItems[7]) / total, 3)
+        obj['cpu.stealstolen'] = round(int(cpuTarItems[8]) / total, 3)
+        obj['cpu.guest']       = round(int(cpuTarItems[9]) / total, 3)
 
         f.close()
 
