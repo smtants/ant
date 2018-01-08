@@ -12,7 +12,7 @@ from smtants.ant.include import log
 def mem():
     try:
         if not os.path.exists('/proc/meminfo'):
-            log.lg_write_ant(' ==mem== /proc/meminfo is not exists !')
+            log.lg_write(' ==mem== /proc/meminfo is not exists !')
             exit()
         
         f = open('/proc/meminfo', 'r', 1)
@@ -54,7 +54,7 @@ def mem():
 
         return obj
     except Exception as e:
-        log.lg_write_ant(' ==mem.mem== ' + str(e))
+        log.lg_write(' ==mem.mem== ' + str(e))
 
 def main():
     obj = mem()

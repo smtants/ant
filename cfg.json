@@ -1,6 +1,7 @@
 {
     "debug": true,
     "endpoint": "XP4-TEST",
+    "ip": "192.168.1.39",
     "nest": {
         "enabled": true,
         "addrs":[
@@ -8,7 +9,16 @@
             "127.0.0.1:1601",
             "127.0.0.1:1601"
         ],
-        "interval": 60,
         "timeout": 1000
-    }
+    },
+    "hbt": {
+        "enabled": true,
+        "addrs":[
+            "127.0.0.1:1988",
+            "127.0.0.1:1988",
+            "127.0.0.1:1988"
+        ],
+        "timeout": 1000
+    },
+    "interval": 60
 }

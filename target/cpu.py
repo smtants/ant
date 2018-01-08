@@ -13,7 +13,7 @@ from smtants.ant.include import log
 def cpu():
     try:
         if not os.path.exists('/proc/stat'):
-            log.lg_write_ant(" ==cpu== /proc/stat is not exists !")
+            log.lg_write(" ==cpu== /proc/stat is not exists !")
             exit()
         
         f = open('/proc/stat', 'r', 1)
@@ -35,7 +35,7 @@ def cpu():
 
         return obj
     except Exception as e:
-        log.lg_write_ant(" ==cpu.cpu== " + str(e))
+        log.lg_write(" ==cpu.cpu== " + str(e))
 
 def main():
     obj = cpu()

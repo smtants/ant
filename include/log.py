@@ -18,9 +18,19 @@ def lg_create_path(path):
 # ant  log
 # @para msg
 #
-def lg_write_ant(msg):
+def lg_write(msg):
     lg_create_path('./log')
     f = open('./log/app.log','a')
+    content = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + msg + "\n"
+    f.write(content)
+    f.close()
+
+# ant  debug
+# @para msg
+#
+def lg_debug(msg):
+    lg_create_path('./log')
+    f = open('./log/debug.log','a')
     content = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) + msg + "\n"
     f.write(content)
     f.close()
