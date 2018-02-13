@@ -4,9 +4,8 @@
 #   xianwen.zhang
 #   2017-12-12
 
-import os
-import urllib.request
-import urllib.parse
+import os, io
+import urllib, urllib2
 import socket
 import json
 import random
@@ -31,9 +30,9 @@ def check_port(host, port):
 #   print debug msg
 def debug(tar, ret):
     if ret['res'] == 0:
-        log.lg_debug(str(tar) + " push is ok !")
+        log.lg_write(str(tar) + " push is ok !")
     else:
-        log.lg_debug(str(tar) + " push failed !")
+        log.lg_write(str(tar) + " push failed !")
 
 def hbt(data):
     #   get config file
@@ -68,8 +67,8 @@ def hbt(data):
             hbtJson['endpoint'] = endpoint
             hbtJson['ip']       = ip
             hbtJson['version']  = version
-            hbtParams = urllib.parse.urlencode(hbtJson).encode(encoding='utf8')
-            hbtReq = urllib.request.urlopen(hbtUrl, hbtParams)
+            hbtParams = urllib.urlencode(hbtJson).encode(encoding='utf8')
+            hbtReq = urllib.urlopen(hbtUrl, hbtParams)
             hbtRet = json.loads(hbtReq.read())
             if hbtRet['res'] > 0:
                 log.lg_write(" ==ant== " + str(endpoint) + " hbt failed !")
@@ -123,8 +122,8 @@ def ant(data):
             for tar in dict(targets).keys():
                 pushJson['timestamp'] = int(time.time())
                 pushJson['value'] = targets.get(tar)()
-                nestParams = urllib.parse.urlencode(pushJson).encode(encoding='utf8')
-                nestReq = urllib.request.urlopen(nestUrl, nestParams)
+                nestParams = urllib.urlencode(pushJson).encode(encoding='utf8')
+                nestReq = urllib.urlopen(nestUrl, nestParams)
                 nestRet = json.loads(nestReq.read())
                 if data['debug']:
                     debug(str(tar),nestRet)
@@ -139,7 +138,7 @@ def main():
         log.lg_write(" ==ant== cfg.json file is not exists !")
         exit()
 
-    f = open('cfg.json', encoding='utf-8')
+    f = io.open('cfg.json', 'r', encoding='utf-8')
     data = json.load(f)
 
     ph = Process(target = hbt, args = (data,))
